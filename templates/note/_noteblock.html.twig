@@ -1,0 +1,42 @@
+<div class="panel note" style="background-color: {{  note.backgroundColor is not null ? '#'~ note.backgroundColor : '' }}">
+    <div class="panel-heading">
+        <h6 class="note-title">
+            {% if note.title is not null %}
+                {{ note.title }}
+            {% else %}
+                <span class="text-muted"> {{ 'note.preview.title.placeholder'|trans }} </span>
+            {% endif %}
+        </h6>
+    </div>
+    <div class="panel-body">
+        <p class="note-body">
+            {% if note.body is not null %}
+                {{ note.body }}
+            {% else %}
+                <span class="text-muted"> {{ 'note.preview.body.placeholder'|trans }} </span>
+            {% endif %}
+        </p>
+
+        {% if no_buttons is not defined %}
+            <div class="pull-right note-actions">
+                <form method="post" data-confirmation="true" action="{{ path('note_delete', {'id': note.id}) }}">
+                    <div class="btn-group btn-group-xs btn-group-vertical">
+                        <a href="{{ path('note_edit', {'id': note.id}) }}" class="btn btn-warning"><span class="fa fa-edit"></span></a>
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ note.id) }}">
+                        <button class="btn btn-danger"><span class="fa fa-eraser"></span></button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+    <div class="panel-footer">
+        {% if note.tags is not null %}
+            {% for tag in note.tags %}
+                <span class="note-tag tag badge">{{ tag.name }}</span>
+            {% endfor %}
+        {% else %}
+            <span class="note-tag tag badge">{{ 'note.preview.tag.placeholder'|trans }}</span>
+        {% endif %}
+    </div>
+</div>

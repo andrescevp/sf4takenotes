@@ -1,0 +1,49 @@
+{% extends 'note/layout.html.twig' %}
+
+{% block main %}
+    <a href="{{ path('index') }}" class="btn btn-default"><span class="fa fa-arrow-circle-o-left"></span></a>
+    <hr/>
+    {{ include('note/_form.html.twig') }}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="panel preview-note note">
+        <div class="panel-heading">
+            <h6 class="note-title">
+                {% if note.title is not null %}
+                    {{ note.title }}
+                {% else %}
+                    <span class="text-muted"> {{ 'note.preview.title.placeholder'|trans }} </span>
+                {% endif %}
+            </h6>
+        </div>
+        <div class="panel-body">
+            <p class="note-body">
+                {% if note.body is not null %}
+                    {{ note.body }}
+                {% else %}
+                    <span class="text-muted"> {{ 'note.preview.body.placeholder'|trans }} </span>
+                {% endif %}
+            </p>
+        </div>
+        <div class="panel-footer">
+            {% if note.tags is not null %}
+                {% for tag in note.tags %}
+                    <span class="note-tag tag badge">{{ tag.name }}</span>
+                {% endfor %}
+            {% else %}
+                <span class="note-tag tag badge">{{ 'note.preview.tag.placeholder'|trans }}</span>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/fine-uploader/fine-uploader.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/color-picker/css/colorpicker.css') }}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('assets/color-picker/js/colorpicker.js') }}"></script>
+    <script src="{{ asset('assets/fine-uploader/fine-uploader.js') }}"></script>
+    {{ parent() }}
+{% endblock %}

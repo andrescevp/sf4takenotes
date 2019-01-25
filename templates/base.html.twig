@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>{% block title %}Takenotes{% endblock %}</title>
+        {{ encore_entry_link_tags('css/app') }}
+        {% block stylesheets %}
+        {% endblock %}
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+
+    <body id="{% block body_id %}{% endblock %}">
+
+        {% block header %}
+            <header>
+                <div class="navbar navbar-default navbar-static-top" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header col-md-3 col-lg-2">
+                            <a class="navbar-brand" href="{{ path('homepage') }}">
+                                TakeNotes
+                            </a>
+
+                            <button type="button" class="navbar-toggle"
+                                    data-toggle="collapse"
+                                    data-target=".navbar-collapse">
+                                <span class="sr-only">{{ 'menu.toggle_nav'|trans }}</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="locales">
+                                        <i class="fa fa-globe" aria-hidden="true"></i>
+                                        <span class="caret"></span>
+                                        <span class="sr-only">{{ 'menu.choose_language'|trans }}</span>
+                                    </a>
+                                    <ul class="dropdown-menu locales" role="menu" aria-labelledby="locales">
+                                        {% for locale in locales() %}
+                                            <li {% if app.request.locale == locale.code %}aria-checked="true" class="active"{% else %}aria-checked="false"{% endif %} role="menuitem"><a href="{{ path(app.request.get('_route', 'blog_index'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">{{ locale.name|capitalize }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% endblock %}
+
+        <div class="container body-container">
+            {{ include('default/_flash_messages.html.twig') }}
+            {% block body %}
+                <div class="row">
+                    <div id="main" class="col-sm-9">
+                        {% block main %}{% endblock %}
+                    </div>
+
+                    <div id="sidebar" class="col-sm-3">
+                        {% block sidebar %}
+                        {% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+
+        {% block footer %}
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div id="footer-copyright" class="col-md-6">
+                            <p>&copy; {{ 'now'|date('Y') }} - Takenotes</p>
+                            <p>{{ 'mit_license'|trans }}</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        {% endblock %}
+
+        <div class="modal fade" id="confirmationModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4>{{ 'delete_post_modal.title'|trans }}</h4>
+                        <p>{{ 'delete_post_modal.body'|trans }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="btnNo" data-dismiss="modal">
+                            <i class="fa fa-ban" aria-hidden="true"></i> {{ 'label.cancel'|trans }}
+                        </button>
+                        <button type="button" class="btn btn-danger" id="btnYes" data-dismiss="modal">
+                            <i class="fa fa-trash" aria-hidden="true"></i> {{ 'label.delete_note'|trans }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ encore_entry_script_tags('js/app') }}
+
+        {% block javascripts %}
+        {% endblock %}
+
+        <!-- Page rendered on {{ 'now'|localizeddate('long', 'long', null, 'UTC') }} -->
+    </body>
+</html>

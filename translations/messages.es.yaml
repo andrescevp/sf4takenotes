@@ -1,0 +1,25 @@
+note:
+  preview:
+    title:
+      placeholder: Mi nota
+    body:
+      placeholder: Hola! Editame!
+    tag:
+      placeholder: una nueva idea
+
+
+menu:
+  choose_language: Elige idioma
+  toggle_nav: Navegación
+
+notes:
+  new: Crear nota
+
+delete_post_modal:
+  title: Vas a borrar esta nota! :(
+  body: Estas seguro? Esta acción no se puede revertir!
+
+label:
+  cancel: Sácame de aquí!
+  delete_note: Borra esto!
+  tags: Etiquetas

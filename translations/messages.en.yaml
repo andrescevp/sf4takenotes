@@ -1,0 +1,25 @@
+note:
+  preview:
+    title:
+      placeholder: My note
+    body:
+      placeholder: Edit me!
+    tag:
+      placeholder: new nice ideas
+
+
+menu:
+  choose_language: Choose your languaje
+  toggle_nav: Nav
+
+notes:
+  new: New note
+
+delete_post_modal:
+  title: Do you want to drop this note?
+  body: Are you sure? (Really, sure?)
+
+label:
+  cancel: Abort mission!
+  delete_note: Drop it!
+  tags: Tags

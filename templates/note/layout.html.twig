@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'notes' %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/colourBrightness.js-master/jquery.colourbrightness.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            // Target your element
+            $('.note').colourBrightness();
+        });
+    </script>
+{% endblock %}
+

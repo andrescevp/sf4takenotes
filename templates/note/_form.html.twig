@@ -1,0 +1,40 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+{% set idColorPicker = form.backgroundColor.vars['id'] %}
+{% set idForm = form.vars['id'] %}
+<script>
+    document.onreadystatechange = () => {
+        if (document.readyState === 'interactive') {
+            var color = $('#{{ idColorPicker }}').val();
+            $('.note').colourBrightness();
+            $('.note').css('background-color', '#' + color);
+            $('#{{ idColorPicker }}').css('background-color', '#' + color);
+
+            $('#{{ idForm }}').change(function () {
+                $('.note-title').text($('#note_title').val());
+                $('.note-body').text($('#note_body').val());
+            });
+
+            $('#{{ idColorPicker }}').ColorPicker({
+                color: color,
+                onShow: function (colpkr) {
+                    $(colpkr).fadeIn(500);
+                    return false;
+                },
+                onHide: function (colpkr) {
+                    $(colpkr).fadeOut(500);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    $('#{{ idColorPicker }}').val(hex);
+                    $('#{{ idColorPicker }}').css('background-color', '#' + hex);
+                    $('.note').css('background-color', '#' + hex);
+                    $('.note').colourBrightness();
+                }
+            });
+        }
+    };
+</script>
